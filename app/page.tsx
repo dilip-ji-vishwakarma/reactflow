@@ -1,8 +1,11 @@
-import { CardMindmap } from "@/components";
-import Image from "next/image";
 
-export default function Home() {
+import { CardMindmap } from '@/components/CardMindmap'
+import React from 'react'
+
+const page = () => {
   return (
-    <div className="w-full h-[800px] m-auto"><CardMindmap /></div>
-  );
+    <div className="w-[1247px] h-[800px] m-auto"><CardMindmap /></div>
+  )
 }
+
+export default page
