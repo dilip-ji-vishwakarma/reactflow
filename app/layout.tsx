@@ -5,6 +5,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 
 
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -31,14 +32,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-           <SidebarProvider>
-      <AppSidebar />
-      <SidebarTrigger />
-      <main>
-        {/* <SidebarTrigger /> */}
-        {children}
-      </main>
-    </SidebarProvider>
+        <SidebarProvider>
+          <AppSidebar />
+          <SidebarTrigger className="bg-black text-white rounded-none"/>
+          <main className="pl-10">
+            {children}
+          </main>
+        </SidebarProvider>
       </body>
     </html>
   );
