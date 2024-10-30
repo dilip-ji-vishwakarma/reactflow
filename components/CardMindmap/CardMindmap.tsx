@@ -5,8 +5,8 @@ import {
   useNodesState,
   useEdgesState,
   addEdge,
-  MiniMap,
-  Controls,
+  Connection,
+  Node,
 } from "@xyflow/react";
 
 import "@xyflow/react/dist/base.css";
@@ -15,6 +15,7 @@ import { CustomNode } from "./CustomNode";
 const nodeTypes = {
   custom: CustomNode,
 };
+
 
 const initNodes = [
   {
@@ -76,15 +77,19 @@ export const CardMindmap = () => {
   const [visibleNodes, setVisibleNodes] = useState<string[]>(["1"]);
 
   const onConnect = useCallback(
-    (params: any) => setEdges((eds) => addEdge(params, eds)),
+    (params: Connection) => setEdges((eds) => addEdge(params, eds)),
+    [setEdges]
+  );
+
+  const onNodeDragStop = useCallback(
+    (event: React.MouseEvent, node: Node) => {
+      console.log(`Node ${node.id} moved to position:`, node.position);
+    },
     []
   );
 
-  const onNodeDragStop = useCallback((event: any, node: any) => {
-    console.log(`Node ${node.id} moved to position:`, node.position);
-  }, []);
-
   const handleNodeClick = (nodeId: string) => {
+    console.log(setNodes);
     if (nodeId === "1") {
       setVisibleNodes((prev) =>
         prev.includes("2") && prev.includes("3") && prev.includes("4")
@@ -123,9 +128,6 @@ export const CardMindmap = () => {
       fitView
       className="bg-teal-50"
       onNodeClick={(event, node) => handleNodeClick(node.id)}
-    >
-      {/* <MiniMap />
-      <Controls /> */}
-    </ReactFlow>
+    />
   );
 };
