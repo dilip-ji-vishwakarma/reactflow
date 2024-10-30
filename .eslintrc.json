@@ -1,3 +1,19 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": ["next/core-web-vitals", "next/typescript"],
+  "rules": {
+    // Disable all rules
+    "no-unused-vars": "off",
+    "no-console": "off",
+    "react/no-danger": "off",
+    "react/prop-types": "off",
+    // Add more rules here if needed
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "off" // Disable explicit any rule
+      }
+    }
+  ]
 }

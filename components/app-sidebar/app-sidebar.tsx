@@ -9,27 +9,18 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
 
-import { BookText, Plus } from "lucide-react";
+
+import { BookText } from "lucide-react";
 import { useState } from "react";
+import { MenuMaker } from "./MenuMaker";
+
 
 type SubmenuItem = {
   title: string;
   url: string;
 };
 
-// Define the type for sidebar items
 type SidebarItem = {
   title: string;
   submenu: SubmenuItem[];
@@ -64,11 +55,9 @@ const items: SidebarItem[] = [
 ];
 
 export function AppSidebar() {
-  // State to track open submenus
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
 
   const toggleSubmenu = (title: string) => {
-    // Toggle the submenu for the clicked item
     setOpenSubmenu(openSubmenu === title ? null : title);
   };
 
@@ -78,22 +67,7 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupLabel className="text-[#444746] text-sm leading-5 flex justify-between pr-0 py-8 items-center">
             <span>Document tabs</span>
-            <AlertDialog>
-              <AlertDialogTrigger><span className="cursor-pointer"><Plus width={18} height={18} /></span></AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    This action cannot be undone. This will permanently delete your account
-                    and remove your data from our servers.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction>Continue</AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
+            <MenuMaker />
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
@@ -104,24 +78,23 @@ export function AppSidebar() {
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton
                       asChild
-                      className="bg-transparent border-transparent cursor-pointer" // No URL, so remove link styling
-                      onClick={() => toggleSubmenu(item.title)} // Toggle submenu on click
+                      className="bg-transparent border-transparent cursor-pointer" 
+                      onClick={() => toggleSubmenu(item.title)} 
                     >
                       <span className={`flex items-center gap-2.5 overflow-hidden text-ellipsis whitespace-nowrap m-0 border text-sm font-medium p-0.5 rounded-sm border-none`}>
                         <BookText width={18} hanging={18} /> {item.title}
                       </span>
                     </SidebarMenuButton>
-                    {/* Render submenu with animation */}
                     {item.submenu.length > 0 && (
                       <div
-                        className={`transition-all duration-300 ease-in-out ${isOpen ? "max-h-40" : "max-h-0 overflow-hidden"}`} // Animate max height
+                        className={`transition-all duration-300 ease-in-out ${isOpen ? "max-h-40" : "max-h-0 overflow-hidden"}`}
                       >
                         <SidebarMenu>
                           {item.submenu.map((subItem, index) => (
                             <SidebarMenuItem key={subItem.title}>
                               <SidebarMenuButton asChild>
                                 <a href={subItem.url}>
-                                  <span>{`${index + 1}. ${subItem.title}`}</span> {/* Display number before title */}
+                                  <span>{`${index + 1}. ${subItem.title}`}</span> 
                                 </a>
                               </SidebarMenuButton>
                             </SidebarMenuItem>
