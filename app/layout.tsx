@@ -30,13 +30,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#F9FBFD] `}
       >
-        <SidebarProvider>
+        <SidebarProvider >
           <AppSidebar />
-          <SidebarTrigger className="bg-black text-white rounded-none"/>
-          <main className="pl-10">
-            {children}
+          <main className="pl-[90px] w-full  mt-5">
+            <div className="bg-white w-full">{children}</div>
           </main>
         </SidebarProvider>
       </body>
